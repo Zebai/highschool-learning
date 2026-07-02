@@ -1021,7 +1021,81 @@
         }
 
         .toast.show { transform: translateX(-50%) translateY(0); }
-    </style>
+    
+        /* ========== 视频推荐区域 ========== */
+        .kc-videos {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .kc-videos-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 14px;
+        }
+
+        .kc-videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 10px;
+        }
+
+        .kc-video-card {
+            display: flex;
+            flex-direction: column;
+            padding: 12px 14px;
+            background: var(--bg-main);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .kc-video-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-1px);
+        }
+
+        .kc-video-platform {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            align-self: flex-start;
+        }
+
+        .kc-video-platform.bilibili {
+            background: #FB7299;
+            color: #fff;
+        }
+
+        .kc-video-platform.national {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .kc-video-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 4px;
+            line-height: 1.4;
+        }
+
+        .kc-video-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+</style>
 </head>
 <body>
 
@@ -3511,6 +3585,64 @@ const KNOWLEDGE = {
     }
 };
 
+// 公开课视频资源
+const VIDEOS = {
+    math: [
+        { title: '【一数】高中数学全套课程', url: 'https://space.bilibili.com/14229967', platform: 'B站', desc: '中考+高中基础+高考冲刺全覆盖' },
+        { title: '赵礼显高考数学', url: 'https://space.bilibili.com/488738478', platform: 'B站', desc: '高考数学系统讲解，方法实用' },
+        { title: '数学微课帮', url: 'https://space.bilibili.com/351583506', platform: 'B站', desc: '初高中同步课程，知识全面' },
+        { title: '国家智慧教育平台-高中数学', url: 'https://basic.smartedu.cn/', platform: '国家平台', desc: '教育部官方课程，体系完整' },
+    ],
+    physics: [
+        { title: '黄夫人物理', url: 'https://space.bilibili.com/23630128', platform: 'B站', desc: '高中物理必修到选修全套，深入浅出' },
+        { title: '李永乐老师', url: 'https://space.bilibili.com/9458053', platform: 'B站', desc: '人大附中名师，趣味科普+应试' },
+        { title: '坤哥物理', url: 'https://space.bilibili.com/11288794', platform: 'B站', desc: '高中物理系统课程' },
+        { title: '国家智慧教育平台-高中物理', url: 'https://basic.smartedu.cn/', platform: '国家平台', desc: '教育部官方课程，体系完整' },
+    ],
+    chemistry: [
+        { title: '化学小莫', url: 'https://space.bilibili.com/328092865', platform: 'B站', desc: '初高中化学，讲解细致' },
+        { title: '清越姐姐的化学课', url: 'https://space.bilibili.com/334990508', platform: 'B站', desc: '初高中化学系统课程' },
+        { title: '化学超人', url: 'https://space.bilibili.com/479502119', platform: 'B站', desc: '高中化学重难点突破' },
+        { title: '国家智慧教育平台-高中化学', url: 'https://basic.smartedu.cn/', platform: '国家平台', desc: '教育部官方课程，体系完整' },
+    ],
+    biology: [
+        { title: '李林生物', url: 'https://space.bilibili.com/229823308', platform: 'B站', desc: '高考生物系统讲解' },
+        { title: '博叔生物', url: 'https://space.bilibili.com/412140228', platform: 'B站', desc: '高考生物考点精讲' },
+        { title: '国家智慧教育平台-高中生物', url: 'https://basic.smartedu.cn/', platform: '国家平台', desc: '教育部官方课程，体系完整' },
+    ],
+    chinese: [
+        { title: '学过石油的语文老师（杨佳奇）', url: 'https://space.bilibili.com/39737405', platform: 'B站', desc: '高考应试技巧，风趣幽默' },
+        { title: '国家玮老师', url: 'https://space.bilibili.com/485578465', platform: 'B站', desc: '高考语文系统讲解' },
+        { title: '朴鲤朴鲤', url: 'https://space.bilibili.com/12575583', platform: 'B站', desc: '作文专项提升' },
+        { title: '国家智慧教育平台-高中语文', url: 'https://basic.smartedu.cn/', platform: '国家平台', desc: '教育部官方课程，体系完整' },
+    ],
+    english: [
+        { title: '英语兔', url: 'https://space.bilibili.com/483162496', platform: 'B站', desc: '语音与语法系统讲解' },
+        { title: 'Free高考英语', url: 'https://space.bilibili.com/2742391', platform: 'B站', desc: '高考英语全程跟学' },
+        { title: '李辉英语', url: 'https://space.bilibili.com/278445879', platform: 'B站', desc: '高考英语提分技巧' },
+        { title: '国家智慧教育平台-高中英语', url: 'https://basic.smartedu.cn/', platform: '国家平台', desc: '教育部官方课程，体系完整' },
+    ],
+    history: [
+        { title: '历史老师定哥', url: 'https://space.bilibili.com/321084528', platform: 'B站', desc: '应试技巧+知识梳理' },
+        { title: '无心插柳柳成荫太难得（陈老师）', url: 'https://space.bilibili.com/25344120', platform: 'B站', desc: '历史知识点精讲' },
+        { title: '国家智慧教育平台-高中历史', url: 'https://basic.smartedu.cn/', platform: '国家平台', desc: '教育部官方课程，体系完整' },
+    ],
+    geography: [
+        { title: '羊羊的地理教室', url: 'https://space.bilibili.com/471009583', platform: 'B站', desc: '地理应试技巧，图文并茂' },
+        { title: '地理安迎老师', url: 'https://space.bilibili.com/492547140', platform: 'B站', desc: '初高中地理系统讲解' },
+        { title: '国家智慧教育平台-高中地理', url: 'https://basic.smartedu.cn/', platform: '国家平台', desc: '教育部官方课程，体系完整' },
+    ],
+    politics: [
+        { title: '刘勖雯政治', url: 'https://space.bilibili.com/200345819', platform: 'B站', desc: '高考政治系统讲解' },
+        { title: '国家智慧教育平台-高中政治', url: 'https://basic.smartedu.cn/', platform: '国家平台', desc: '教育部官方课程，体系完整' },
+    ],
+};
+
+// 获取当前科目推荐视频
+function getSubjectVideos(subjectId) {
+    return VIDEOS[subjectId] || [];
+}
+
 // 练习题数据
 const EXERCISES = [
     { id: 1, subject: 'math', difficulty: '中等', question: '函数 f(x) = x² - 4x + 3 的对称轴是？', options: ['x = 1', 'x = 2', 'x = 3', 'x = -2'], answer: 1, explain: 'f(x) = x² - 4x + 3 = (x-2)² - 1，对称轴为 x = 2' },
@@ -3797,6 +3929,10 @@ function loadKnowledge(subjectId, pointId) {
             </div>
         </div>
         <div class="kc-body">${content.body}</div>
+                <div class="kc-videos">
+            <div class="kc-videos-title">🎬 推荐公开课视频</div>
+            <div class="kc-videos-grid" id="videoGrid-${subjectId}"></div>
+        </div>
         <div class="kc-actions">
             <button class="btn btn-success" onclick="markLearned('${subjectId}', '${pointId}')">✓ 标记为已学</button>
             <button class="btn btn-outline" onclick="navigateTo('exercise')">做相关练习</button>
@@ -3805,6 +3941,22 @@ function loadKnowledge(subjectId, pointId) {
     
     // 滚动到顶部
     container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+    // 渲染视频推荐
+    const videos = getSubjectVideos(subjectId);
+    const videoGrid = document.getElementById('videoGrid-' + subjectId);
+    if (videoGrid && videos.length > 0) {
+        videoGrid.innerHTML = videos.map(v => {
+            const platformClass = v.platform === 'B站' ? 'bilibili' : 'national';
+            return `
+                <a href="${v.url}" target="_blank" class="kc-video-card" title="${v.desc}">
+                    <div class="kc-video-platform ${platformClass}">${v.platform}</div>
+                    <div class="kc-video-name">${v.title}</div>
+                    <div class="kc-video-desc">${v.desc}</div>
+                </a>
+            `;
+        }).join('');
+    }
 }
 
 function markLearned(subjectId, pointId) {
